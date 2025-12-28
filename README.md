@@ -38,7 +38,7 @@
 Инструкция:
 
 # 1. Клонируй
-git clone <твой-репозиторий>
+git clone https://github.com/MaxWoden/Game-Reviews-Project.git
 cd game_reviews_site
 
 # 2. Виртуальное окружение
@@ -60,4 +60,5 @@ python manage.py createsuperuser
 python manage.py runserver
 
 # 7. Открой в браузере:
+
 # http://127.0.0.1:8000
