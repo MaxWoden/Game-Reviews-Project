@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход в систему{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-github me-2"></i>Вход через GitHub
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    
+                    <!-- Большая кнопка GitHub -->
+                    <div class="mb-5">
+                        <a href="{% url 'social:begin' 'github' %}" 
+                           class="btn btn-dark btn-lg py-3 px-5">
+                            <i class="bi bi-github me-3" style="font-size: 1.5rem;"></i>
+                            <span style="font-size: 1.2rem;">Войти через GitHub</span>
+                        </a>
+                        <p class="text-muted mt-3">
+                            Идеально для разработчиков и геймеров
+                        </p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <!-- Или стандартный вход -->
+                    <h5 class="mb-3">Или войдите через аккаунт сайта</h5>
+                    
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <input type="text" name="username" class="form-control" 
+                                   placeholder="Имя пользователя" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <input type="password" name="password" class="form-control" 
+                                   placeholder="Пароль" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            Войти
+                        </button>
+                        
+                        <div class="text-center">
+                            <a href="{% url 'register' %}">Регистрация</a> • 
+                            <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

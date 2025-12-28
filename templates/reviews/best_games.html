@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="page-header text-center mb-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Лучшие игры</h1>
+        <p class="lead">Топ-5 игр по оценкам пользователей</p>
+    </div>
+</div>
+
+<div class="container">
+    {% if best_games %}
+    <div class="row">
+        {% for game in best_games %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card game-card h-100 border-success border-2">
+                {% if game.logo %}
+                <img src="{{ game.logo.url }}" class="card-img-top game-logo" alt="{{ game.title }}">
+                {% else %}
+                <div class="game-logo bg-success bg-opacity-10 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-trophy text-success" style="font-size: 3rem;"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="badge bg-success me-2">Топ {{ forloop.counter }}</span>
+                            <span class="badge bg-primary">{{ game.get_genre_display }}</span>
+                        </div>
+                        <span class="rating-badge rating-high fs-5">{{ game.avg_rating|default:"-" }}/10</span>
+                    </div>
+                    <h5 class="card-title">{{ game.title }}</h5>
+                    <p class="card-text text-muted">{{ game.description|truncatewords:30 }}</p>
+                    <div class="mt-3">
+                        <small class="text-muted">
+                            <i class="bi bi-person me-1"></i>{{ game.developer }}
+                        </small>
+                        <br>
+                        <small class="text-muted">
+                            <i class="bi bi-chat-text me-1"></i>{{ game.reviews.count }} отзывов
+                        </small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'game_detail' game.id %}" class="btn btn-success w-100">
+                        <i class="bi bi-eye me-2"></i>Смотреть отзывы
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="text-center mt-5">
+        <a href="{% url 'home' %}" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left me-2"></i>Посмотреть все игры
+        </a>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="bi bi-emoji-frown display-1 text-muted"></i>
+        <h3 class="mt-3">Недостаточно данных</h3>
+        <p class="text-muted">Для формирования рейтинга нужно больше отзывов</p>
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">Посмотреть все игры</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
