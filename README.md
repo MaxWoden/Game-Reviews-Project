@@ -66,11 +66,12 @@
 # 4. Инструкция для запуска используя docker:
 
 1. Клонирование проекта
-   git clone https://github.com/MaxWoden/Game-Reviews-Project.git
-   cd game_reviews_site
+   1) git clone https://github.com/MaxWoden/Game-Reviews-Project.git
+   2) cd game_reviews_site
 
-2. Запуск проекта
-   docker-compose up --build
+3. Запуск проекта
+docker-compose up --build
+
 
 
 
