@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+      - ./media:/app/media
+      - ./static:/app/static
+      - ./db.sqlite3:/app/db.sqlite3
+    ports:
+      - "8000:8000"
+    environment:
+      # Для Django
+      PYTHONUNBUFFERED: "1"
+      # Для GitHub OAuth (замените на свои или оставьте как есть)
+      SOCIAL_AUTH_GITHUB_KEY: "Ov23lioS8hkfRe4VgGgZ"
+      SOCIAL_AUTH_GITHUB_SECRET: "0e091502836963ceaa3662e1abc2021bdbf092e2"
+    stdin_open: true # Для дебаггера
+    tty: true # Для дебаггера

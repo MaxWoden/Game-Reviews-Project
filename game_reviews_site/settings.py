@@ -7,7 +7,8 @@ SECRET_KEY = 'django-insecure-@e0^vpc(&v2^(gfx--4_qa)(%4g*^vphvw%!j59m_vn=1y)+n=
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ДОБАВЬТЕ эту строку для Docker
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,19 +26,17 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# Ключи Google OAuth2 (ЗАМЕНИТЕ НА СВОИ!)
+# Оставляем как есть, но можно вынести в переменные окружения если нужно
 SOCIAL_AUTH_GITHUB_KEY = 'Ov23lioS8hkfRe4VgGgZ'
 SOCIAL_AUTH_GITHUB_SECRET = '0e091502836963ceaa3662e1abc2021bdbf092e2'
 
-# Настройки перенаправления
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'  # После входа
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'  # Для новых пользователей
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
 
-# Дополнительные настройки
-SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']  # Запрашиваем email пользователя
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
-# Сохранять пользователей в БД
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
@@ -80,6 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'game_reviews_site.wsgi.application'
 
+# Оставляем SQLite как есть
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
