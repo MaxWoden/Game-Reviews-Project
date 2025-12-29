@@ -5,7 +5,17 @@ services:
       - .:/app
       - ./media:/app/media
       - ./static:/app/static
-      - ./db.sqlite3:/app/db.sqlite3
+    command: >
+      sh -c "
+      if [ ! -f /app/db.sqlite3 ] || [ -d /app/db.sqlite3 ]; then
+        echo 'Создаю файл базы...'
+        rm -rf /app/db.sqlite3
+        touch /app/db.sqlite3
+        chmod 644 /app/db.sqlite3
+      fi &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
     ports:
       - "8000:8000"
     environment:

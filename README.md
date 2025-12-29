@@ -22,40 +22,43 @@
 ## Tables
 
 ### Game
-| Column | Type | Description |
-|--------|------|-------------|
-| id | Integer (PK) | Primary key |
-| title | Char(200) | Game title |
-| description | Text | Game description |
-| logo | Image | Game logo image |
-| release_date | Date | Release date |
-| developer | Char(100) | Developer company |
-| publisher | Char(100) | Publisher company |
-| genre | Char(50) | Game genre |
-| avg_rating | Decimal(3,2) | Average rating (calculated) |
-| created_date | DateTime | Creation timestamp |
+
+| Column       | Type         | Description                 |
+| ------------ | ------------ | --------------------------- |
+| id           | Integer (PK) | Primary key                 |
+| title        | Char(200)    | Game title                  |
+| description  | Text         | Game description            |
+| logo         | Image        | Game logo image             |
+| release_date | Date         | Release date                |
+| developer    | Char(100)    | Developer company           |
+| publisher    | Char(100)    | Publisher company           |
+| genre        | Char(50)     | Game genre                  |
+| avg_rating   | Decimal(3,2) | Average rating (calculated) |
+| created_date | DateTime     | Creation timestamp          |
 
 ### Review
-| Column | Type | Description |
-|--------|------|-------------|
-| id | Integer (PK) | Primary key |
-| game_id | Integer (FK → Game.id) | Associated game |
-| author_id | Integer (FK → User.id) | Review author |
-| rating | Integer(1-10) | Rating score |
-| content | Text | Review text |
-| created_date | DateTime | Creation timestamp |
-| updated_date | DateTime | Last update timestamp |
+
+| Column       | Type                   | Description           |
+| ------------ | ---------------------- | --------------------- |
+| id           | Integer (PK)           | Primary key           |
+| game_id      | Integer (FK → Game.id) | Associated game       |
+| author_id    | Integer (FK → User.id) | Review author         |
+| rating       | Integer(1-10)          | Rating score          |
+| content      | Text                   | Review text           |
+| created_date | DateTime               | Creation timestamp    |
+| updated_date | DateTime               | Last update timestamp |
 
 ### User (Django built-in)
-| Column | Type | Description |
-|--------|------|-------------|
-| id | Integer (PK) | Primary key |
-| username | Char(150) | Username |
-| email | Email | Email address |
-| password | Char(128) | Hashed password |
-| date_joined | DateTime | Registration date |
-| is_staff | Boolean | Staff status |
-| is_superuser | Boolean | Superuser status |
+
+| Column       | Type         | Description       |
+| ------------ | ------------ | ----------------- |
+| id           | Integer (PK) | Primary key       |
+| username     | Char(150)    | Username          |
+| email        | Email        | Email address     |
+| password     | Char(128)    | Hashed password   |
+| date_joined  | DateTime     | Registration date |
+| is_staff     | Boolean      | Staff status      |
+| is_superuser | Boolean      | Superuser status  |
 
 # 3. Связи:
 
@@ -66,12 +69,9 @@
 # 4. Инструкция для запуска используя docker:
 
 1. Клонирование проекта
-   1) git clone https://github.com/MaxWoden/Game-Reviews-Project.git
-   2) cd game_reviews_site
 
-3. Запуск проекта
-docker-compose up --build
+   1. git clone https://github.com/MaxWoden/Game-Reviews-Project.git
+   2. cd game_reviews_site
 
-
-
-
+2. Запуск проекта
+   1. docker-compose up --build
