@@ -17,20 +17,50 @@
 5. Админ-панель - Полное управление контентом через Django Admin
 6. Добавлена библиотека ipython
 
-┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
-│ Game │ │ Review │ │ User │
-├────────────────-┤ ├────────────────-┤ ├────────────────-┤
-│ id (PK) │ │ id (PK) │ │ id (PK) │
-│ title │◄──────│ game (FK) │ │ username │
-│ description │ │ author (FK) │──────►│ email │
-│ logo │ │ rating (1-10) │ │ password │
-│ release_date │ │ content │ │ date_joined │
-│ developer │ │ created_date │ │ is_staff │
-│ publisher │ │ updated_date │ │ is_superuser │
-│ genre │ │ │ │ │
-│ avg_rating │ │ │ │ │
-│ created_date │ │ │ │ │
-└─────────────────┘ └─────────────────┘ └─────────────────┘
+┌──────────────────────────────────────────────────────┐
+│                      Game                            │
+├──────────────────────────────────────────────────────┤
+│  id (PK, Integer, AutoIncrement)                     │
+│  title (CharField, max_length=200)                   │
+│  description (TextField)                             │
+│  logo (ImageField, upload_to='games/logos/')         │
+│  release_date (DateField)                            │
+│  developer (CharField, max_length=100)               │
+│  publisher (CharField, max_length=100)               │
+│  genre (CharField, max_length=50)                    │
+│  avg_rating (DecimalField, max_digits=3, decimal=2)  │
+│  created_date (DateTimeField, auto_now_add=True)     │
+└──────────────────────────────────────────────────────┘
+                            │
+                            │ 1:N
+                            ▼
+┌──────────────────────────────────────────────────────┐
+│                      Review                          │
+├──────────────────────────────────────────────────────┤
+│  id (PK, Integer, AutoIncrement)                     │
+│  game (FK → Game.id, CASCADE)                        │
+│  author (FK → User.id, CASCADE)                      │
+│  rating (IntegerField, choices=1-10)                 │
+│  content (TextField)                                 │
+│  created_date (DateTimeField, auto_now_add=True)     │
+│  updated_date (DateTimeField, auto_now=True)         │
+└──────────────────────────────────────────────────────┘
+                            │
+                            │ N:1
+                            ▼
+┌──────────────────────────────────────────────────────┐
+│                      User                            │
+├──────────────────────────────────────────────────────┤
+│  id (PK, Integer, AutoIncrement)                     │
+│  username (CharField, max_length=150, unique)        │
+│  email (EmailField, unique)                          │
+│  password (CharField, max_length=128)                │
+│  date_joined (DateTimeField, auto_now_add=True)      │
+│  is_staff (BooleanField, default=False)              │
+│  is_superuser (BooleanField, default=False)          │
+│  is_active (BooleanField, default=True)              │
+│  last_login (DateTimeField, null=True)               │
+└──────────────────────────────────────────────────────┘
 
 # 3. Связи:
 
@@ -46,3 +76,4 @@
 
 2. Виртуальное окружение
    docker-compose up --build
+
