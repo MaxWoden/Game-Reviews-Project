@@ -71,8 +71,9 @@
 1. Клонирование проекта
 
    1. git clone https://github.com/MaxWoden/Game-Reviews-Project.git
-   2. cd .\Game-Reviews-Project\
+   2. cd game-reviews-project
 
 2. Запуск проекта
    1. docker-compose up --build
+
 
