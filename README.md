@@ -17,50 +17,45 @@
 5. Админ-панель - Полное управление контентом через Django Admin
 6. Добавлена библиотека ipython
 
-┌──────────────────────────────────────────────────────┐
-│                      Game                            │
-├──────────────────────────────────────────────────────┤
-│  id (PK, Integer, AutoIncrement)                     │
-│  title (CharField, max_length=200)                   │
-│  description (TextField)                             │
-│  logo (ImageField, upload_to='games/logos/')         │
-│  release_date (DateField)                            │
-│  developer (CharField, max_length=100)               │
-│  publisher (CharField, max_length=100)               │
-│  genre (CharField, max_length=50)                    │
-│  avg_rating (DecimalField, max_digits=3, decimal=2)  │
-│  created_date (DateTimeField, auto_now_add=True)     │
-└──────────────────────────────────────────────────────┘
-                            │
-                            │ 1:N
-                            ▼
-┌──────────────────────────────────────────────────────┐
-│                      Review                          │
-├──────────────────────────────────────────────────────┤
-│  id (PK, Integer, AutoIncrement)                     │
-│  game (FK → Game.id, CASCADE)                        │
-│  author (FK → User.id, CASCADE)                      │
-│  rating (IntegerField, choices=1-10)                 │
-│  content (TextField)                                 │
-│  created_date (DateTimeField, auto_now_add=True)     │
-│  updated_date (DateTimeField, auto_now=True)         │
-└──────────────────────────────────────────────────────┘
-                            │
-                            │ N:1
-                            ▼
-┌──────────────────────────────────────────────────────┐
-│                      User                            │
-├──────────────────────────────────────────────────────┤
-│  id (PK, Integer, AutoIncrement)                     │
-│  username (CharField, max_length=150, unique)        │
-│  email (EmailField, unique)                          │
-│  password (CharField, max_length=128)                │
-│  date_joined (DateTimeField, auto_now_add=True)      │
-│  is_staff (BooleanField, default=False)              │
-│  is_superuser (BooleanField, default=False)          │
-│  is_active (BooleanField, default=True)              │
-│  last_login (DateTimeField, null=True)               │
-└──────────────────────────────────────────────────────┘
+# Database Schema
+
+## Tables
+
+### Game
+| Column | Type | Description |
+|--------|------|-------------|
+| id | Integer (PK) | Primary key |
+| title | Char(200) | Game title |
+| description | Text | Game description |
+| logo | Image | Game logo image |
+| release_date | Date | Release date |
+| developer | Char(100) | Developer company |
+| publisher | Char(100) | Publisher company |
+| genre | Char(50) | Game genre |
+| avg_rating | Decimal(3,2) | Average rating (calculated) |
+| created_date | DateTime | Creation timestamp |
+
+### Review
+| Column | Type | Description |
+|--------|------|-------------|
+| id | Integer (PK) | Primary key |
+| game_id | Integer (FK → Game.id) | Associated game |
+| author_id | Integer (FK → User.id) | Review author |
+| rating | Integer(1-10) | Rating score |
+| content | Text | Review text |
+| created_date | DateTime | Creation timestamp |
+| updated_date | DateTime | Last update timestamp |
+
+### User (Django built-in)
+| Column | Type | Description |
+|--------|------|-------------|
+| id | Integer (PK) | Primary key |
+| username | Char(150) | Username |
+| email | Email | Email address |
+| password | Char(128) | Hashed password |
+| date_joined | DateTime | Registration date |
+| is_staff | Boolean | Staff status |
+| is_superuser | Boolean | Superuser status |
 
 # 3. Связи:
 
@@ -76,4 +71,5 @@
 
 2. Виртуальное окружение
    docker-compose up --build
+
 
